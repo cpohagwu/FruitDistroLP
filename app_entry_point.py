@@ -408,8 +408,8 @@ def gr_run_lp_model(df_supply, supply_col_id, supply_col_val_list, df_demand, de
     logs = flatten_list(logs)
 
     # Save the processed CSV for download
-    matrix_results_csv_path = '/matrix_results.csv'
-    direct_results_csv_path = '/direct_results.csv'
+    matrix_results_csv_path = 'matrix_results.csv'
+    direct_results_csv_path = 'direct_results.csv'
     df_matrix_results.to_csv(matrix_results_csv_path, index=True)
     df_direct_results.to_csv(direct_results_csv_path, index=True)
 
