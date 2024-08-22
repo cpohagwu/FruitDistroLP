@@ -505,4 +505,4 @@ with gr.Blocks() as app:
                                     download_matrix_results, download_direct_results])
 
 # Launch the app
-app.launch()
+app.launch(share=True)
