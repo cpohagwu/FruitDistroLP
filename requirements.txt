@@ -1,0 +1,6 @@
+pulp
+gradio
+pandas
+numpy
+matplotlib
+seaborn
