@@ -1,8 +1,3 @@
-# Install Dependencies
-
-pip install pulp --quiet
-pip install gradio --quiet
-
 """
 The Fruit Distribution Problem for the PuLP Modeller
 
