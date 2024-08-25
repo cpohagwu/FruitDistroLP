@@ -446,7 +446,7 @@ def gr_process_files(supply_file, demand_file, matrix_file, supply_col_id, suppl
 # Gradio Interface
 with gr.Blocks() as app:
     # Logo
-    img_url="https://upload.wikimedia.org/wikipedia/en/thumb/d/d5/Dole_Foods_Logo_Green_Leaf.svg/1280px-Dole_Foods_Logo_Green_Leaf.svg.png"
+    img_url="https://cdn.freshfruitportal.com/2018/10/Dole-Foods-Logo_Green-Leaf-with-Shadow_PMS-368-1024x621.png"
     gr.Image(value=img_url, width=100, height=100)
 
     gr.Markdown("# Fruit Distribution App")
@@ -454,25 +454,45 @@ with gr.Blocks() as app:
     ###############################################
     gr.Markdown("## File Procesor")
     # CSV File Uploads
-    supply = gr.File(label="Upload Supply CSV File")
-    demand = gr.File(label="Upload Demand CSV File")
-    matrix = gr.File(label="Upload Matrix CSV File")
+    with gr.Row(variant = "compact"):
+      with gr.Column(min_width = 100):
+        gr.Markdown("### Supply File")
+        supply = gr.File(label="Upload Supply CSV File")
+      with gr.Column(min_width = 100):
+        gr.Markdown("### Demand File")
+        demand = gr.File(label="Upload Demand CSV File")
+      with gr.Column(min_width = 100):
+        gr.Markdown("### Matrix File")
+        matrix = gr.File(label="Upload Matrix CSV File")
 
     # Process Button
     process_button = gr.Button("Process Files")
 
-    # Outputs
-    gr_logs = gr.Textbox(label="Data Processing Logs")
-    gr_supply_col_id = gr.Textbox(label="Supply Column ID")
-    gr_supply_col_val_list = gr.Textbox(label="Supply Column Value List")
-    gr_df_supply = gr.Dataframe(label="Supply Dataframe")
+    # OUTPUTS
+    # Outputs logs
+    gr_logs = gr.Textbox(label="Data Processing Logs", lines=6)
 
-    gr_demand_n_matrix_col_id = gr.Textbox(label="Demand N Matrix Column ID")
-    gr_demand_col_val = gr.Textbox(label="Demand Column Value")
-    gr_demand_n_matrix_col_id_category = gr.Textbox(label="Demand N Matrix Column ID Category")
-    gr_df_demand = gr.Dataframe(label="Demand Dataframe")
+    with gr.Accordion("Data Processing Outputs", open=False):
+      # Outputs supply
+      with gr.Row():
+        with gr.Column(min_width = 120):
+          gr_supply_col_id = gr.Textbox(label="Supply Column ID")
+        with gr.Column(min_width = 120):
+          gr_supply_col_val_list = gr.Textbox(label="Supply Column Value List")
+      gr_df_supply = gr.Dataframe(label="Supply Dataframe") 
 
-    gr_df_matrix = gr.Dataframe(label="Matrix Dataframe")
+      # Outputs demand
+      with gr.Row():
+        with gr.Column(min_width = 120):
+          gr_demand_n_matrix_col_id = gr.Textbox(label="Demand N Matrix Column ID")
+        with gr.Column(min_width = 120):
+          gr_demand_col_val = gr.Textbox(label="Demand Column Value")
+        with gr.Column(min_width = 120):
+          gr_demand_n_matrix_col_id_category = gr.Textbox(label="Demand N Matrix Column ID Category")
+      gr_df_demand = gr.Dataframe(label="Demand Dataframe")
+
+      # Outputs matrix
+      gr_df_matrix = gr.Dataframe(label="Matrix Dataframe")
 
     # Link function to button
     process_button.click(fn=gr_process_files,
@@ -489,11 +509,13 @@ with gr.Blocks() as app:
     run_model_button = gr.Button("Run Model")
 
     # Outputs
-    out_logs = gr.Textbox(label="Model Building Logs")
+    out_logs = gr.Textbox(label="Model Building Logs", lines=6)
     out_df_direct_results = gr.Dataframe(label="Direct Results Dataframe")
 
-    download_matrix_results = gr.File(label="Download Matrix Results")
-    download_direct_results = gr.File(label="Download Direct Results")
+    # Download Outputs
+    with gr.Accordion("Download Outputs", open=False):
+      download_matrix_results = gr.File(label="Download Matrix Results")
+      download_direct_results = gr.File(label="Download Direct Results")
 
     # Link function to button
     run_model_button.click(fn=gr_run_lp_model,
